@@ -1,0 +1,27 @@
+{
+    "cloudwatch.emitMetrics": true,
+    "kinesis.endpoint": "kinesis.us-east-2.amazonaws.com",
+    "firehose.endpoint": "",
+    "flows": [
+        {
+            "filePattern": "/var/log/mywebsite/*.log",
+            "kinesisStream": "mywebsiteorder",
+            "partitionKeyOption": "RANDOM",
+            "dataProcessingOptions": [
+                {
+                    "optionName": "CSVTOJSON",
+                    "customFieldNames": [
+                        "InvoiceNo",
+                        "StockCode",
+                        "Description",
+                        "Quantity",
+                        "InvoiceDate",
+                        "UnitPrice",
+                        "Customer",
+                        "Country"
+                    ]
+                }
+            ]
+        }
+    ]
+}

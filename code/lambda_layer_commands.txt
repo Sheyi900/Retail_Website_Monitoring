@@ -1,0 +1,16 @@
+mkdir folder
+cd folder
+virtualenv v-env
+source ./v-env/bin/activate
+pip3 install pymysql
+deactivate
+
+mkdir python
+cd python
+cp -r ../v-env/lib64/python3.9/site-packages/* .
+cp -r ../v-env/lib/python3.9/site-packages/* .
+cd ..
+zip -r pymysql_layer.zip python
+aws lambda publish-layer-version --layer-name pymysql_layer --zip-file fileb://pymysql_layer.zip --compatible-runtimes python3.9
+
+tail -f /var/log/aws-kinesis-agent/aws-kinesis-agent.log
